@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:fonz_music_flutter/GlobalComponents/FrontEnd/FrontEndConstants.dart';
+import 'package:fonz_encoder/GlobalComponents/FrontEnd/FrontEndConstants.dart';
 
 class SuccessWriteUid extends StatefulWidget {
 
@@ -20,8 +20,8 @@ class _SuccessWriteUidState extends State<SuccessWriteUid> {
             padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
             child: NeumorphicButton(
               child: Container(
-                width: 100,
-                height: 100,
+                width: 150,
+                height: 150,
                 child:
                 Container(
                     padding: const EdgeInsets.all(20),
@@ -42,8 +42,9 @@ class _SuccessWriteUidState extends State<SuccessWriteUid> {
               ),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+          Container(
+            color: DARKERGREY,
+            padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
             child: new Text(
               "successfully wrote url to tag",
               style: TextStyle(

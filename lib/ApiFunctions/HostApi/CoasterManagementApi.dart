@@ -29,7 +29,7 @@ class CoasterManagementApi {
       var responseMessage;
 
       if (response.statusCode == 200) {
-        log('success renamed coaster');
+        log('success updating coaster db for encoded ');
         responseMessage = "SUCCESS_UPDATING_DB";
         return responseMessage;
       } else {

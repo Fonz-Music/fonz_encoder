@@ -2,11 +2,11 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:ffi';
 
-import 'package:fonz_music_flutter/ApiFunctions/HostApi/CoasterManagementApi.dart';
-import 'package:fonz_music_flutter/GlobalComponents/FrontEnd/FrontEndConstants.dart';
-import 'package:fonz_music_flutter/GlobalComponents/Objects/CoasterObject.dart';
-import 'package:fonz_music_flutter/NfcFunctions/WriteTagFunctions.dart';
-import 'package:fonz_music_flutter/NfcFunctions/ReadTagFunctions.dart';
+import 'package:fonz_encoder/ApiFunctions/HostApi/CoasterManagementApi.dart';
+import 'package:fonz_encoder/GlobalComponents/FrontEnd/FrontEndConstants.dart';
+import 'package:fonz_encoder/GlobalComponents/Objects/CoasterObject.dart';
+import 'package:fonz_encoder/NfcFunctions/WriteTagFunctions.dart';
+import 'package:fonz_encoder/NfcFunctions/ReadTagFunctions.dart';
 
 import '../HomeEncodePage.dart';
 

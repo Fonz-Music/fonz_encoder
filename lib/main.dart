@@ -5,9 +5,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:fonz_music_flutter/GlobalComponents/CoreUserAttributes.dart';
+import 'package:fonz_encoder/GlobalComponents/CoreUserAttributes.dart';
 
-import 'package:fonz_music_flutter/SearchTab/HomeEncodePage.dart';
+import 'package:fonz_encoder/SearchTab/HomeEncodePage.dart';
 import 'package:package_info/package_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

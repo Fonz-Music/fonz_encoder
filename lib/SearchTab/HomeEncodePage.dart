@@ -3,15 +3,15 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
-import 'package:fonz_music_flutter/GlobalComponents/FrontEnd/FrontEndConstants.dart';
-import 'package:fonz_music_flutter/GlobalComponents/Objects/CoasterObject.dart';
+import 'package:fonz_encoder/GlobalComponents/FrontEnd/FrontEndConstants.dart';
+import 'package:fonz_encoder/GlobalComponents/Objects/CoasterObject.dart';
 
-import 'package:fonz_music_flutter/SearchTab/HomePageWidgets/HomePageResponses/FailPartyJoin.dart';
+import 'package:fonz_encoder/SearchTab/HomePageWidgets/HomePageResponses/FailPartyJoin.dart';
 
-import 'package:fonz_music_flutter/SearchTab/HomePageWidgets/EncodeATagButton.dart';
-import 'package:fonz_music_flutter/SearchTab/HomePageWidgets/HomePageResponses/SuccessReadUid.dart';
-import 'package:fonz_music_flutter/GlobalComponents/FrontEnd/TapYourPhoneAmber.dart';
-import 'package:fonz_music_flutter/main.dart';
+import 'package:fonz_encoder/SearchTab/HomePageWidgets/EncodeATagButton.dart';
+import 'package:fonz_encoder/SearchTab/HomePageWidgets/HomePageResponses/SuccessReadUid.dart';
+import 'package:fonz_encoder/GlobalComponents/FrontEnd/TapYourPhoneAmber.dart';
+import 'package:fonz_encoder/main.dart';
 
 import 'HomePageWidgets/HomePageResponses/CoasterHasNoHost.dart';
 import 'HomePageWidgets/HomePageResponses/SuccessWriteUid.dart';
@@ -60,7 +60,7 @@ class _HomeEncodePageState extends State<HomeEncodePage> {
         children: [
           Container(
               width: width,
-              padding: EdgeInsets.fromLTRB(0, 0, 0, 30),
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
               child: Padding(
                 padding: EdgeInsets.fromLTRB(20, 50, 0, 0),
                 child: new Text(
@@ -74,11 +74,12 @@ class _HomeEncodePageState extends State<HomeEncodePage> {
                 ),
               )),
           Container(
-            height: 30,
+            height: 10,
           ),
           Row(
             children: [
               Container(
+                width: width * 0.3,
                 padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                 child: Text(
                   "token:",
@@ -96,6 +97,7 @@ class _HomeEncodePageState extends State<HomeEncodePage> {
           Row(
             children: [
               Container(
+                width: width * 0.3,
                 padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                 child: Text(
                   "tag group:",
@@ -159,7 +161,7 @@ class _HomeEncodePageState extends State<HomeEncodePage> {
         child: SuccessReadUid(),
       );
     } else if (encodeTagResponse == "SUCCESS_UPDATING_DB") {
-      Timer(Duration(milliseconds: SUCCESSPAGELENGTH), () async {
+      Timer(Duration(milliseconds: 3000), () async {
         encodeTagResponse = "HOME";
         widget.notifyParent();
       });
@@ -266,7 +268,7 @@ class _HomeEncodePageState extends State<HomeEncodePage> {
     return Container(
       padding: EdgeInsets.fromLTRB(10, 5, 5, 5),
       height: 50,
-      width: width * 0.5,
+      width: width * 0.6,
       child: Neumorphic(
         style: NeumorphicStyle(
             color: Colors.white,
@@ -309,7 +311,7 @@ class _HomeEncodePageState extends State<HomeEncodePage> {
     return Container(
       padding: EdgeInsets.fromLTRB(10, 5, 5, 5),
       height: 50,
-      width: width * 0.5,
+      width: width * 0.6,
       child: Neumorphic(
         style: NeumorphicStyle(
             color: Colors.white,
@@ -325,7 +327,7 @@ class _HomeEncodePageState extends State<HomeEncodePage> {
             color: DARKERGREY,
           ),
           decoration: InputDecoration(
-            hintText: "group name",
+            hintText: "admin accessToken",
             border: InputBorder.none,
             contentPadding:
                 EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
@@ -337,9 +339,9 @@ class _HomeEncodePageState extends State<HomeEncodePage> {
             });
 //            print(_email);
           },
-          initialValue: groupCoasterBelongs,
+          initialValue: accessToken,
           validator: (value) => value.isEmpty ? 'Email can\'t be empty' : null,
-          onSaved: (value) => groupCoasterBelongs = value.trim(),
+          onSaved: (value) => accessToken = value.trim(),
         ),
       ),
     );

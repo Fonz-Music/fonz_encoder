@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
-import 'package:fonz_music_flutter/GlobalComponents/ExceptionHandling.dart';
+import 'package:fonz_encoder/GlobalComponents/ExceptionHandling.dart';
 
 
 import 'package:nfc_in_flutter/nfc_in_flutter.dart';
