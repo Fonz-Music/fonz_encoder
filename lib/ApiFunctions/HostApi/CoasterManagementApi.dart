@@ -10,6 +10,8 @@ class CoasterManagementApi {
   // --------------------------------------------now dio---------------------------------------------------------
   // make changes to coaster function
   // rename coaster function - include name as param
+  static Future classifyCoasterAsEncoded(
+      String coasterUID, bool encoded, String group, String accessToken) async {
     String endpoint = address + admin + coasters + coasterUID;
     String token = accessToken;
     // dio
