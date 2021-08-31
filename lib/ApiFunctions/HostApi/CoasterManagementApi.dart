@@ -7,26 +7,21 @@ import '../ApiConstants.dart';
 import '../AuthMethods.dart';
 
 class CoasterManagementApi {
-
-
-
-
   // --------------------------------------------now dio---------------------------------------------------------
   // make changes to coaster function
   // rename coaster function - include name as param
-  static Future classifyCoasterAsEncoded(String coasterUID, bool encoded, String group) async {
-    String endpoint = address + host + coasters + coasterUID;
-    String token = await getJWTAndCheckIfExpired();
+    String endpoint = address + admin + coasters + coasterUID;
+    String token = accessToken;
     // dio
     Dio dio = new Dio();
     dio.options.headers = {HttpHeaders.authorizationHeader: 'Bearer $token'};
     try {
       var response;
       if (group != "") {
-         response = await dio.put(endpoint, data: {'encoded': encoded, 'group': group});
-      }
-      else {
-         response = await dio.put(endpoint, data: {'encoded': encoded});
+        response =
+            await dio.put(endpoint, data: {'encoded': encoded, 'group': group});
+      } else {
+        response = await dio.put(endpoint, data: {'encoded': encoded});
       }
 
       var responseMessage;
@@ -60,8 +55,7 @@ class CoasterManagementApi {
     Dio dio = new Dio();
     dio.options.headers = {HttpHeaders.authorizationHeader: 'Bearer $token'};
     try {
-      var response =
-      await dio.put(endpoint, data: {"active": active});
+      var response = await dio.put(endpoint, data: {"active": active});
 
       if (response.statusCode == 200) {
         log('success paused coaster');
@@ -166,9 +160,7 @@ class CoasterManagementApi {
       };
     }
   }
-
 }
-
 
 // get owned coasters
 
@@ -211,12 +203,12 @@ class GetSingleOwnedCoasterDecoder {
 
   GetSingleOwnedCoasterDecoder(
       {this.status,
-        this.message,
-        this.ownedCoaster,
-        this.name,
-        this.userId,
-        this.paused,
-        this.active});
+      this.message,
+      this.ownedCoaster,
+      this.name,
+      this.userId,
+      this.paused,
+      this.active});
 
   GetSingleOwnedCoasterDecoder.fromJson(Map<String, dynamic> json) {
     status = json['status'];
