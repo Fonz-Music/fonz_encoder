@@ -1,6 +1,6 @@
 # fonz_music_flutter
 
-A new Flutter project for Fonz 2.0, Fonz Music's 2nd app release.
+A new Flutter project for to encode all Fonz Music NFC tags.
 
 ## Getting Started
 
