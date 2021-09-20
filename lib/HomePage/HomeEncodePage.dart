@@ -77,7 +77,7 @@ class _HomeEncodePageState extends State<HomeEncodePage> {
           Container(
             height: 10,
           ),
-          SignInHomePage(),
+          SignInHomePage(notifyParent: widget.notifyParent,),
           // Row(
           //   children: [
           //     Container(
