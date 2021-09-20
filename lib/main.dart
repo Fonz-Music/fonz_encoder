@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fonz_encoder/ApiFunctions/AdminWebApi.dart';
 
 import 'package:fonz_encoder/GlobalComponents/CoreUserAttributes.dart';
 
@@ -39,13 +40,16 @@ void main() async {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseAuth.instance
       .authStateChanges()
-      .listen((User user) {
+      .listen((User user) async {
     if (user == null) {
       userSignedIn = false;
       print('User is currently signed out!');
     } else {
       userSignedIn = true;
-      print('User is signed in!');
+      // var jwt = await FirebaseAuth.instance.currentUser.getIdToken();
+      // log("the jwt is " + jwt);
+      // await AdminWebApi.getAdminToken();
+      // print('User is signed in!');
     }
   });
 

@@ -24,10 +24,7 @@ class _SignInHomePageState extends State<SignInHomePage> {
 
     if (!userSignedIn) {
       return Container(
-
         padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
-
-
         child: MaterialButton(
           child: Container(
             width: width * 0.8,
@@ -41,7 +38,7 @@ class _SignInHomePageState extends State<SignInHomePage> {
                   offset: Offset(3, 3), // changes position of shadow
                 ),
               ],
-              color: Colors.white,
+              color: DARKLILAC,
               borderRadius: BorderRadius.circular(CORNERRADIUSBUTTON),
             ),
             child: Center(
@@ -87,20 +84,34 @@ class _SignInHomePageState extends State<SignInHomePage> {
     }
     else {
       return Container(
-        width: width * 0.8,
         padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
-        child: NeumorphicButton(
-          child: Text(
-            "sign out",
-            style: TextStyle(
-              fontFamily: FONZFONTTWO,
-              fontSize: HEADINGFIVE,
-              color: DARKERGREY,
+        child: MaterialButton(
+          child: Container(
+            width: width * 0.8,
+            height: 40,
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: SHADOWGREY,
+                  spreadRadius: 2,
+                  blurRadius: 4,
+                  offset: Offset(3, 3), // changes position of shadow
+                ),
+              ],
+              color: DARKLILAC,
+              borderRadius: BorderRadius.circular(CORNERRADIUSBUTTON),
             ),
-            textAlign: TextAlign.center,
-          ),
-          style: NeumorphicStyle(
-              color: DARKLILAC
+            child: Center(
+              child: Text(
+                "sign out",
+                style: TextStyle(
+                  fontFamily: FONZFONTTWO,
+                  fontSize: HEADINGFIVE,
+                  color: DARKERGREY,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
           ),
           onPressed: () async {
             await showDialog(
