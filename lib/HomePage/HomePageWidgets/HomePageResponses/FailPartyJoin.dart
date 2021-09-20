@@ -1,23 +1,24 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:fonz_encoder/GlobalComponents/FrontEnd/FrontEndConstants.dart';
-import 'package:fonz_encoder/SearchTab/HomePageWidgets/scanForCoasterDetails.dart';
+import 'package:fonz_encoder/HomePage/HomePageWidgets/scanForCoasterDetails.dart';
 
-import '../HomeEncodePage.dart';
+import '../../HomeEncodePage.dart';
 
-class EncodeATagButton extends StatefulWidget {
+class FailPartyJoin extends StatefulWidget {
 
-  EncodeATagButton({Key key, @required this.notifyParent}) : super(key: key);
+  String errorMessage;
+  String errorImage;
 
   final Function() notifyParent;
 
+  FailPartyJoin({Key key, @required this.errorMessage, this.errorImage, this.notifyParent}) : super(key: key);
+
   @override
-  _EncodeATagButtonState createState() => _EncodeATagButtonState();
+  _FailPartyJoinState createState() => _FailPartyJoinState();
 }
 
-class _EncodeATagButtonState extends State<EncodeATagButton> {
+class _FailPartyJoinState extends State<FailPartyJoin> {
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -27,13 +28,13 @@ class _EncodeATagButtonState extends State<EncodeATagButton> {
             padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
             child: NeumorphicButton(
               child: Container(
-                width: 200,
-                height: 200,
+                width: 100,
+                height: 100,
                 child:
                 Container(
-                  padding: const EdgeInsets.all(70),
+                  padding: const EdgeInsets.all(30),
                   child: Image(
-                    image: AssetImage("assets/fonzIcons/plusIconAmber.png"),
+                    image: AssetImage("${widget.errorImage}"),
 
                   ),
                 ),
@@ -41,33 +42,27 @@ class _EncodeATagButtonState extends State<EncodeATagButton> {
               style: NeumorphicStyle(
                   shape: NeumorphicShape.flat,
                   boxShape: NeumorphicBoxShape.circle(),
-                  border: NeumorphicBorder(width: 2, color: AMBER),
+                  border: NeumorphicBorder(width: 2, color: Colors.red),
                   color: determineColorThemeBackground(),
                   shadowDarkColor: determineLightShadowRoundButton(),
                   shadowLightColor: determineLightShadowRoundButton()
               ),
               onPressed: () async {
-                encodeTagResponse = "READING_TAG";
-                // widget.notifyParent();
-
                 var tagUidResp = await scanForTagUid();
                 encodeTagResponse = tagUidResp[0];
                 tagUid = tagUidResp[1];
-
-                launchedNfcToJoinParty = true;
                 widget.notifyParent();
               },
-
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+            padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
             child: new Text(
-              "encode a tag",
+              "${widget.errorMessage}",
               style: TextStyle(
                 fontFamily: FONZFONTTWO,
-                fontSize: HEADINGTHREE,
-                color: determineColorThemeTextInverse(),
+                fontSize: HEADINGFOUR,
+                color: Colors.red,
               ),
               textAlign: TextAlign.center,
             ),
@@ -76,6 +71,4 @@ class _EncodeATagButtonState extends State<EncodeATagButton> {
       ),
     );
   }
-
-
 }

@@ -2,18 +2,22 @@ import 'dart:developer';
 import 'dart:io';
 
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:fonz_encoder/GlobalComponents/CoreUserAttributes.dart';
 
-import 'package:fonz_encoder/SearchTab/HomeEncodePage.dart';
+import 'package:fonz_encoder/HomePage/HomeEncodePage.dart';
 import 'package:package_info/package_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
 import 'GlobalComponents/FrontEnd/FrontEndConstants.dart';
 import 'MustUpdateApp.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+bool userSignedIn = false;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,6 +33,21 @@ void main() async {
   else {
     platform = "Android";
   }
+
+  await Firebase.initializeApp();
+
+  FirebaseAuth auth = FirebaseAuth.instance;
+  FirebaseAuth.instance
+      .authStateChanges()
+      .listen((User user) {
+    if (user == null) {
+      userSignedIn = false;
+      print('User is currently signed out!');
+    } else {
+      userSignedIn = true;
+      print('User is signed in!');
+    }
+  });
 
   runApp(FonzMusicApp());
 }

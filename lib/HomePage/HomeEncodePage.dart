@@ -6,15 +6,16 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:fonz_encoder/GlobalComponents/FrontEnd/FrontEndConstants.dart';
 import 'package:fonz_encoder/GlobalComponents/Objects/CoasterObject.dart';
 
-import 'package:fonz_encoder/SearchTab/HomePageWidgets/HomePageResponses/FailPartyJoin.dart';
+import 'package:fonz_encoder/HomePage/HomePageWidgets/HomePageResponses/FailPartyJoin.dart';
 
-import 'package:fonz_encoder/SearchTab/HomePageWidgets/EncodeATagButton.dart';
-import 'package:fonz_encoder/SearchTab/HomePageWidgets/HomePageResponses/SuccessReadUid.dart';
+import 'package:fonz_encoder/HomePage/HomePageWidgets/EncodeATagButton.dart';
+import 'package:fonz_encoder/HomePage/HomePageWidgets/HomePageResponses/SuccessReadUid.dart';
 import 'package:fonz_encoder/GlobalComponents/FrontEnd/TapYourPhoneAmber.dart';
 import 'package:fonz_encoder/main.dart';
 
 import 'HomePageWidgets/HomePageResponses/CoasterHasNoHost.dart';
 import 'HomePageWidgets/HomePageResponses/SuccessWriteUid.dart';
+import 'HomePageWidgets/SignInHomePage.dart';
 import 'HomePageWidgets/scanForCoasterDetails.dart';
 
 bool pressedNfcButtonToJoinPartu = false;
@@ -76,24 +77,25 @@ class _HomeEncodePageState extends State<HomeEncodePage> {
           Container(
             height: 10,
           ),
-          Row(
-            children: [
-              Container(
-                width: width * 0.3,
-                padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                child: Text(
-                  "token:",
-                  style: TextStyle(
-                    fontFamily: FONZFONTTWO,
-                    fontSize: HEADINGFIVE,
-                    color: determineColorThemeTextInverse(),
-                  ),
-                  textAlign: TextAlign.left,
-                ),
-              ),
-              GroupNameInput1(),
-            ],
-          ),
+          SignInHomePage(),
+          // Row(
+          //   children: [
+          //     Container(
+          //       width: width * 0.3,
+          //       padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+          //       child: Text(
+          //         "token:",
+          //         style: TextStyle(
+          //           fontFamily: FONZFONTTWO,
+          //           fontSize: HEADINGFIVE,
+          //           color: determineColorThemeTextInverse(),
+          //         ),
+          //         textAlign: TextAlign.left,
+          //       ),
+          //     ),
+          //     GroupNameInput1(),
+          //   ],
+          // ),
           Row(
             children: [
               Container(
