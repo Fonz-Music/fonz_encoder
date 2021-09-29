@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:fonz_encoder/ApiFunctions/GuestApi/GuestGetCoasterApi.dart';
 
 import 'package:fonz_encoder/GlobalComponents/FrontEnd/FrontEndConstants.dart';
 import 'package:fonz_encoder/GlobalComponents/Objects/CoasterObject.dart';
@@ -13,6 +14,7 @@ import 'package:fonz_encoder/HomePage/HomePageWidgets/HomePageResponses/SuccessR
 import 'package:fonz_encoder/GlobalComponents/FrontEnd/TapYourPhoneAmber.dart';
 import 'package:fonz_encoder/main.dart';
 
+import 'HomePageWidgets/CoasterInfoPage.dart';
 import 'HomePageWidgets/GetCoasterInfoButton.dart';
 import 'HomePageWidgets/HomePageResponses/CoasterHasNoHost.dart';
 import 'HomePageWidgets/HomePageResponses/SuccessWriteUid.dart';
@@ -25,7 +27,7 @@ String tagUid = "";
 bool launchedNfcToJoinParty = false;
 
 String groupCoasterBelongs = "";
-String accessToken = "";
+String commandToLaunch = "";
 
 class HomeEncodePage extends StatefulWidget {
   HomeEncodePage({Key key, this.notifyParent}) : super(key: key);
@@ -79,24 +81,6 @@ class _HomeEncodePageState extends State<HomeEncodePage> {
             height: 10,
           ),
           SignInHomePage(notifyParent: widget.notifyParent,),
-          // Row(
-          //   children: [
-          //     Container(
-          //       width: width * 0.3,
-          //       padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-          //       child: Text(
-          //         "token:",
-          //         style: TextStyle(
-          //           fontFamily: FONZFONTTWO,
-          //           fontSize: HEADINGFIVE,
-          //           color: determineColorThemeTextInverse(),
-          //         ),
-          //         textAlign: TextAlign.left,
-          //       ),
-          //     ),
-          //     GroupNameInput1(),
-          //   ],
-          // ),
           Row(
             children: [
               Container(
@@ -152,7 +136,33 @@ class _HomeEncodePageState extends State<HomeEncodePage> {
         encodeTagResponse = "READING_TAG";
         // widget.notifyParent();
 
-        encodeTagResponse = await writeUrlToCoaster(tagUid);
+        if (commandToLaunch == "WRITE_URL_TO_COASTER") {
+          encodeTagResponse = await writeUrlToCoaster(tagUid);
+        }
+        else if (commandToLaunch == "GET_COASTER_INFO") {
+          var coasterInfo = await GuestGetCoasterApi.getCoasterDetails(tagUid);
+          log("coaster info is " + coasterInfo.toString());
+          showModalBottomSheet<dynamic>(context: context,
+              isScrollControlled: true,
+              builder: (BuildContext bc) {
+                return Wrap(
+                    children: <Widget>[
+                      Container(
+                        height: height * 0.95,
+                        child: Container(
+                          decoration: new BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: new BorderRadius.only(
+                                  topLeft: const Radius.circular(25.0),
+                                  topRight: const Radius.circular(25.0))),
+                          child: CoasterInfoPage(coasterInfo: coasterInfo, notifyParent: widget.notifyParent,),
+                        ),
+                      )
+                    ]
+                );
+              });
+        }
+
         widget.notifyParent();
       });
       // Timer(Duration(seconds: 5), () {
@@ -182,7 +192,7 @@ class _HomeEncodePageState extends State<HomeEncodePage> {
               // child: Spacer()
             ),
             EncodeATagButton(notifyParent: refresh),
-            GetCoasterInfoButton()
+            GetCoasterInfoButton(notifyParent: refresh)
           ],
         ),
       );
@@ -307,47 +317,47 @@ class _HomeEncodePageState extends State<HomeEncodePage> {
       ),
     );
   }
-
-  Widget GroupNameInput1() {
-    final size = MediaQuery.of(context).size;
-    final width = size.width;
-    final height = size.height;
-    return Container(
-      padding: EdgeInsets.fromLTRB(10, 5, 5, 5),
-      height: 50,
-      width: width * 0.6,
-      child: Neumorphic(
-        style: NeumorphicStyle(
-            color: Colors.white,
-            shadowDarkColor: SHADOWGREY,
-            shadowLightColor: SHADOWGREY),
-        child: TextFormField(
-          maxLines: 1,
-          keyboardType: TextInputType.text,
-          autofocus: false,
-          style: TextStyle(
-            fontFamily: FONZFONTTWO,
-            fontSize: HEADINGFIVE,
-            color: DARKERGREY,
-          ),
-          decoration: InputDecoration(
-            hintText: "admin accessToken",
-            border: InputBorder.none,
-            contentPadding:
-                EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
-          ),
-          onChanged: (value) {
-            setState(() {
-              print("token" + value);
-              accessToken = value;
-            });
-//            print(_email);
-          },
-          initialValue: accessToken,
-          validator: (value) => value.isEmpty ? 'Email can\'t be empty' : null,
-          onSaved: (value) => accessToken = value.trim(),
-        ),
-      ),
-    );
-  }
+//
+//   Widget GroupNameInput1() {
+//     final size = MediaQuery.of(context).size;
+//     final width = size.width;
+//     final height = size.height;
+//     return Container(
+//       padding: EdgeInsets.fromLTRB(10, 5, 5, 5),
+//       height: 50,
+//       width: width * 0.6,
+//       child: Neumorphic(
+//         style: NeumorphicStyle(
+//             color: Colors.white,
+//             shadowDarkColor: SHADOWGREY,
+//             shadowLightColor: SHADOWGREY),
+//         child: TextFormField(
+//           maxLines: 1,
+//           keyboardType: TextInputType.text,
+//           autofocus: false,
+//           style: TextStyle(
+//             fontFamily: FONZFONTTWO,
+//             fontSize: HEADINGFIVE,
+//             color: DARKERGREY,
+//           ),
+//           decoration: InputDecoration(
+//             hintText: "admin accessToken",
+//             border: InputBorder.none,
+//             contentPadding:
+//                 EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
+//           ),
+//           onChanged: (value) {
+//             setState(() {
+//               print("token" + value);
+//               accessToken = value;
+//             });
+// //            print(_email);
+//           },
+//           initialValue: accessToken,
+//           validator: (value) => value.isEmpty ? 'Email can\'t be empty' : null,
+//           onSaved: (value) => accessToken = value.trim(),
+//         ),
+//       ),
+//     );
+//   }
 }

@@ -22,6 +22,8 @@ Future<String> getAdminAccessTokenAndCheckIfExpired() async {
   }
   // check if its valid OR if accessToken is nil
   if (!isValid) {
+
+    log("token is expired or needs to be generateed");
     // generate accessToken
       // create anon account endpoint
       var adminAccessTokenResp = await AdminWebApi.getAdminToken();

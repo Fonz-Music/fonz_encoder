@@ -51,7 +51,7 @@ class _EncodeATagButtonState extends State<EncodeATagButton> {
 
                 encodeTagResponse = "READING_TAG";
                 // widget.notifyParent();
-
+                commandToLaunch = "WRITE_URL_TO_COASTER";
                 var tagUidResp = await scanForTagUid();
                 encodeTagResponse = tagUidResp[0];
                 tagUid = tagUidResp[1];

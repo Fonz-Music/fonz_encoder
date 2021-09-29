@@ -74,19 +74,26 @@ class CoasterDecoder {
   String name;
   String coasterId;
   bool active;
+  bool encoded;
   String userId;
+  String group;
 
   CoasterDecoder({
     this.name,
     this.userId,
     this.coasterId,
-    this.active});
+    this.active,
+    this.group,
+    this.encoded
+  });
 
   CoasterDecoder.fromJson(Map<String, dynamic> json) {
     coasterId = json['coasterId'];
     name = json['name'];
     active = json['active'];
     userId = json['userId'];
+    group = json['group'];
+    encoded = json['encoded'];
   }
 }
 
@@ -115,15 +122,18 @@ class GetHostCoasterDecoder {
 
   var coaster;
   var session;
+  var hostName;
 
   GetHostCoasterDecoder({
     this.coaster,
     this.session,
+    this.hostName
     });
 
   GetHostCoasterDecoder.fromJson(Map<String, dynamic> json) {
     coaster = json['coaster'];
     session = json['session'];
+    hostName = json['hostName'];
 
     coaster = CoasterDecoder.fromJson(json['coaster']);
     session = SessionDecoder.fromJson(json['session']);

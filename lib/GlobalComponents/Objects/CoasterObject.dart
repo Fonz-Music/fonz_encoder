@@ -2,15 +2,15 @@
 import 'dart:developer';
 
 class CoasterObject {
-  String hostName;
-  String coasterName;
-  String coasterUid;
-  String sessionId;
+  String name;
+  String coasterId;
+  String group;
+  String userId;
   int statusCode = 0;
-  bool needToEncodeCoaster = false;
+  bool encoded = false;
 
 
-  CoasterObject(this.hostName, this.coasterName, this.sessionId, this.coasterUid);
+  CoasterObject(this.name, this.group, this.coasterId, this.userId);
 
   // CoasterObject.withStatus(this.hostName, this.coasterName, this.sessionId, this.coasterUid, this.statusCode);
 
@@ -24,17 +24,15 @@ class CoasterObject {
   //   // log("code being set to " + code.toString());
   // }
 
-  setEncodeCoaster(bool newValue ) {
-    this.needToEncodeCoaster = newValue;
-  }
+
 
   updateCoaster(CoasterObject newCoaster) {
-    this.hostName = newCoaster.hostName;
-    this.coasterUid = newCoaster.coasterUid;
-    this.coasterName = newCoaster.coasterName;
+    this.coasterId = newCoaster.coasterId;
+    this.userId = newCoaster.userId;
+    this.name = newCoaster.name;
     this.statusCode = newCoaster.statusCode;
-    this.sessionId = newCoaster.sessionId;
-    this.needToEncodeCoaster = newCoaster.needToEncodeCoaster;
+    this.group = newCoaster.group;
+    this.encoded = newCoaster.encoded;
   }
 
 }

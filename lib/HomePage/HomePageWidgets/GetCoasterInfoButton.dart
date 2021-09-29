@@ -1,12 +1,17 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:fonz_encoder/GlobalComponents/FrontEnd/FrontEndConstants.dart';
+import 'package:fonz_encoder/HomePage/HomePageWidgets/scanForCoasterDetails.dart';
+
+import '../HomeEncodePage.dart';
 
 class GetCoasterInfoButton extends StatefulWidget {
 
-  // BuyACoasterHomeButton({Key key, @required this.notifyParent}) : super(key: key);
+  GetCoasterInfoButton({Key key, @required this.notifyParent}) : super(key: key);
 
-
+  final Function() notifyParent;
 
   @override
   _GetCoasterInfoButtonState createState() => _GetCoasterInfoButtonState();
@@ -51,7 +56,16 @@ class _GetCoasterInfoButtonState extends State<GetCoasterInfoButton> {
                     shadowLightColor: determineLightShadowRoundButton()
                 ),
                 onPressed: () async {
+                  encodeTagResponse = "READING_TAG";
+                  // widget.notifyParent();
 
+                  commandToLaunch = "GET_COASTER_INFO";
+                  var tagUidResp = await scanForTagUid();
+                  encodeTagResponse = tagUidResp[0];
+                  tagUid = tagUidResp[1];
+
+                  launchedNfcToJoinParty = true;
+                  widget.notifyParent();
                   },
 
               ),
