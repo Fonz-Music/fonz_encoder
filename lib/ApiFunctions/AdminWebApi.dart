@@ -7,9 +7,11 @@ import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'ApiConstants.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 
-String addressWeb = "https://www.fonzmusic.com/i/";
+
+String addressWeb = "https://fonzmusic.com/i/";
 String admin = "admin/";
 String token = "token/";
 
@@ -23,7 +25,13 @@ class AdminWebApi {
     jwtToken = await FirebaseAuth.instance.currentUser.getIdToken();
     // await FirebaseAuth.instance.currentUser.getIdToken();
     log("endpoint: " + endpoint);
+    log("jwt is " + jwtToken);
 
+   var superSecret = dotenv.env['superSecret'].replaceAll("\$", r"\$");
+    log("secret is " + superSecret);
+
+    var secretSansSlash = superSecret.replaceAll("\\", "");
+    log("secretSans is " + secretSansSlash);
     // dio
     Dio dio = new Dio();
 
@@ -32,11 +40,12 @@ class AdminWebApi {
     log("dio works");
     try {
       // var response = await dio.post(endpoint, data: {"email": email, "password": password});
-      // var response = await dio.get(endpoint, data: {"authToken": jwtToken});
-      var response = await dio.get(endpoint);
+      var response = await dio.post(endpoint, data: {"authToken": secretSansSlash});
+      // var response = await dio.get(endpoint);
       if (response.statusCode == 200) {
 //      log('success got coasters');
         log("success");
+        log("response is " + response.toString());
         log("resp is " + response.data.toString());
         // response.data = GetHostCoasterDecoder.fromJson(response.data);
       } else {
@@ -52,10 +61,8 @@ class AdminWebApi {
         "body": response.data};
     }
     on DioError catch (e) {
-      // log("this is status " + e.response
-      //     .statusCode.toString());
-      log("this is mssg" + e.response.data["message"].toString());
-      print("this is mssg" + e.response.data["code"].toString());
+      log("status code " +e.response.data["statusCode"].toString());
+      log("status code " +e.response.toString());
       return {
         "statusCode": e.response.data["status"],
         "code": e.response.data["code"],

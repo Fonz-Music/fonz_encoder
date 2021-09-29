@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:fonz_encoder/ApiFunctions/AdminWebApi.dart';
 import 'package:fonz_encoder/GlobalComponents/FrontEnd/FrontEndConstants.dart';
 import 'package:fonz_encoder/HomePage/HomePageWidgets/scanForCoasterDetails.dart';
 
@@ -47,15 +48,16 @@ class _EncodeATagButtonState extends State<EncodeATagButton> {
                   shadowLightColor: determineLightShadowRoundButton()
               ),
               onPressed: () async {
-                encodeTagResponse = "READING_TAG";
+                AdminWebApi.getAdminToken();
+                // encodeTagResponse = "READING_TAG";
+                // // widget.notifyParent();
+                //
+                // var tagUidResp = await scanForTagUid();
+                // encodeTagResponse = tagUidResp[0];
+                // tagUid = tagUidResp[1];
+                //
+                // launchedNfcToJoinParty = true;
                 // widget.notifyParent();
-
-                var tagUidResp = await scanForTagUid();
-                encodeTagResponse = tagUidResp[0];
-                tagUid = tagUidResp[1];
-
-                launchedNfcToJoinParty = true;
-                widget.notifyParent();
               },
 
             ),

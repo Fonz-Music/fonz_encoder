@@ -17,6 +17,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'GlobalComponents/FrontEnd/FrontEndConstants.dart';
 import 'MustUpdateApp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 bool userSignedIn = false;
 
@@ -53,6 +54,7 @@ void main() async {
     }
   });
 
+  await dotenv.load(fileName: ".env");
   runApp(FonzMusicApp());
 }
 

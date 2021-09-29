@@ -43,7 +43,8 @@ dependencies:
 #to use firebase auth
   firebase_auth: ^3.1.1
   firebase_core: ^1.6.0
-
+#  so that we can store the secret access token in an env file
+  flutter_dotenv: ^5.0.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -72,6 +73,7 @@ flutter:
     - assets/lightGreyIcons/
     - assets/darkGreyIcons/
     - assets/thirdParties/
+    - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
