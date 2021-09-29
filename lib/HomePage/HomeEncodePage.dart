@@ -13,6 +13,7 @@ import 'package:fonz_encoder/HomePage/HomePageWidgets/HomePageResponses/SuccessR
 import 'package:fonz_encoder/GlobalComponents/FrontEnd/TapYourPhoneAmber.dart';
 import 'package:fonz_encoder/main.dart';
 
+import 'HomePageWidgets/GetCoasterInfoButton.dart';
 import 'HomePageWidgets/HomePageResponses/CoasterHasNoHost.dart';
 import 'HomePageWidgets/HomePageResponses/SuccessWriteUid.dart';
 import 'HomePageWidgets/SignInHomePage.dart';
@@ -65,7 +66,7 @@ class _HomeEncodePageState extends State<HomeEncodePage> {
               child: Padding(
                 padding: EdgeInsets.fromLTRB(20, 50, 0, 0),
                 child: new Text(
-                  "encode",
+                  "admin",
                   style: TextStyle(
                     fontFamily: FONZFONTTWO,
                     fontSize: HEADINGTHREE,
@@ -181,6 +182,7 @@ class _HomeEncodePageState extends State<HomeEncodePage> {
               // child: Spacer()
             ),
             EncodeATagButton(notifyParent: refresh),
+            GetCoasterInfoButton()
           ],
         ),
       );
