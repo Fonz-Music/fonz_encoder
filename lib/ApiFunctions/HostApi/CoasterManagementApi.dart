@@ -11,9 +11,9 @@ class CoasterManagementApi {
   // make changes to coaster function
   // rename coaster function - include name as param
   static Future classifyCoasterAsEncoded(
-      String coasterUID, bool encoded, String group, String accessToken) async {
+      String coasterUID, bool encoded, String group) async {
     String endpoint = address + admin + coasters + coasterUID;
-    String token = accessToken;
+    String token = await getAdminAccessTokenAndCheckIfExpired();
     // dio
     Dio dio = new Dio();
     dio.options.headers = {HttpHeaders.authorizationHeader: 'Bearer $token'};
@@ -47,7 +47,7 @@ class CoasterManagementApi {
   static Future pauseCoaster(String coasterUID, bool active) async {
     log("bool is " + active.toString());
     String endpoint = address + host + coasters + coasterUID;
-    String token = await getJWTAndCheckIfExpired();
+    String token = await getAdminAccessTokenAndCheckIfExpired();
     // String token = await FirebaseAuth.instance.currentUser.getIdToken();
     // http
     // var response = await http.put(endpoint,
@@ -129,7 +129,7 @@ class CoasterManagementApi {
   // DELETE /host/coaster/{coasterUID}
   static Future disconnectCoaster(String coasterUID) async {
     String endpoint = address + host + coasters + coasterUID;
-    String token = await getJWTAndCheckIfExpired();
+    String token = await getAdminAccessTokenAndCheckIfExpired();
     // dio
     Dio dio = new Dio();
     dio.options.headers = {HttpHeaders.authorizationHeader: 'Bearer $token'};

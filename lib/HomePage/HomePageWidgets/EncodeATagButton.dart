@@ -48,16 +48,16 @@ class _EncodeATagButtonState extends State<EncodeATagButton> {
                   shadowLightColor: determineLightShadowRoundButton()
               ),
               onPressed: () async {
-                AdminWebApi.getAdminToken();
-                // encodeTagResponse = "READING_TAG";
-                // // widget.notifyParent();
-                //
-                // var tagUidResp = await scanForTagUid();
-                // encodeTagResponse = tagUidResp[0];
-                // tagUid = tagUidResp[1];
-                //
-                // launchedNfcToJoinParty = true;
+
+                encodeTagResponse = "READING_TAG";
                 // widget.notifyParent();
+
+                var tagUidResp = await scanForTagUid();
+                encodeTagResponse = tagUidResp[0];
+                tagUid = tagUidResp[1];
+
+                launchedNfcToJoinParty = true;
+                widget.notifyParent();
               },
 
             ),

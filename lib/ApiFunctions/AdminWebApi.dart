@@ -28,10 +28,10 @@ class AdminWebApi {
     log("jwt is " + jwtToken);
 
    var superSecret = dotenv.env['superSecret'].replaceAll("\$", r"\$");
-    log("secret is " + superSecret);
+    // log("secret is " + superSecret);
 
     var secretSansSlash = superSecret.replaceAll("\\", "");
-    log("secretSans is " + secretSansSlash);
+    // log("secretSans is " + secretSansSlash);
     // dio
     Dio dio = new Dio();
 
@@ -45,7 +45,6 @@ class AdminWebApi {
       if (response.statusCode == 200) {
 //      log('success got coasters');
         log("success");
-        log("response is " + response.toString());
         log("resp is " + response.data.toString());
         // response.data = GetHostCoasterDecoder.fromJson(response.data);
       } else {

@@ -16,7 +16,7 @@ class GuestGetCoasterApi {
     log("im getting called ");
     String endpoint = address + guest + coaster + uid;
     String token = "";
-    token = await getJWTAndCheckIfExpired();
+    token = await getAdminAccessTokenAndCheckIfExpired();
     // await FirebaseAuth.instance.currentUser.getIdToken();
     log("endpoint: " + endpoint);
 

@@ -21,7 +21,7 @@ Future<String> writeUrlToCoaster(uidFromScannedTag) async {
     // update api
     var updateCoasterResponse =
         await CoasterManagementApi.classifyCoasterAsEncoded(
-            uidFromScannedTag, true, groupCoasterBelongs, accessToken);
+            uidFromScannedTag, true, groupCoasterBelongs);
 
     return updateCoasterResponse;
   }

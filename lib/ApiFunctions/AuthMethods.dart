@@ -3,10 +3,10 @@ import 'dart:developer';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fonz_encoder/ApiFunctions/UserEndpoints/AuthApi.dart';
 
+import 'AdminWebApi.dart';
 import 'UserEndpoints/AuthApi.dart';
 
-Future<String> getJWTAndCheckIfExpired() async {
-
+Future<String> getAdminAccessTokenAndCheckIfExpired() async {
   // Create storage
   final storage = new FlutterSecureStorage();
   // init isValid bool
@@ -22,43 +22,12 @@ Future<String> getJWTAndCheckIfExpired() async {
   }
   // check if its valid OR if accessToken is nil
   if (!isValid) {
-    // fetch accessToken from keystore
-    String refreshToken = await storage.read(key: "refreshToken");
-
-    // check if user already has account (check for refresh + access)
-    if (refreshToken != null && refreshToken != "" && accessToken != null && accessToken != "") {
-        String userId = getUserIdFromAccessToken(accessToken);
-        log("refreshToken is " + refreshToken);
-        print("refreshing token");
-        // refresh token endpoint
-      var refreshEndpointResp = await AuthApi.refreshAccessToken(userId, refreshToken);
-      log("status for refresh end is " + refreshEndpointResp["status"].toString());
-      if (refreshEndpointResp["statusCode"] == 404) {
-        log("inside 404");
-        // create anon account endpoint
-        var createAnonEndpointResp = await AuthApi.createAnonAccount();
-        accessToken = createAnonEndpointResp["body"].accessToken;
-      }
-      else {
-        log("getting refresh access");
-        accessToken = refreshEndpointResp["body"]["accessToken"];
-      }
-
-
-    }
-    // if no account, create an anon account
-    else {
-      print("creating anon acc");
-      log("creating acc anon");
+    // generate accessToken
       // create anon account endpoint
-      var createAnonEndpointResp = await AuthApi.createAnonAccount();
-      accessToken = createAnonEndpointResp["body"].accessToken;
-
-    }
+      var adminAccessTokenResp = await AdminWebApi.getAdminToken();
+      accessToken = adminAccessTokenResp["body"]["accessToken"];
   }
-
   return accessToken;
-
 }
 
 

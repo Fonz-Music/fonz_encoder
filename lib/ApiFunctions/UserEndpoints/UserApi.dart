@@ -13,7 +13,7 @@ class UserApi {
   static Future<Map> updateUserAccount(String email, String password, String displayName, bool agreedConsent, bool agreedMarketing) async {
     String endpoint = address + user;
     // fetch token
-    String token = await getJWTAndCheckIfExpired();
+    String token = await getAdminAccessTokenAndCheckIfExpired();
     // dio
     Dio dio = new Dio();
     // add auth token
@@ -61,7 +61,7 @@ class UserApi {
   static Future<Map> getUserAccount() async {
     String endpoint = address + user;
     // fetch token
-    String token = await getJWTAndCheckIfExpired();
+    String token = await getAdminAccessTokenAndCheckIfExpired();
     // dio
     Dio dio = new Dio();
     // add auth token
