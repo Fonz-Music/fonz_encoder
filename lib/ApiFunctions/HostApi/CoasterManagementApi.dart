@@ -41,6 +41,33 @@ class CoasterManagementApi {
     }
   }
 
+  static Future updateCoasterGroup(
+      String coasterUID, String group) async {
+    String endpoint = address + admin + coasters + coasterUID;
+    String token = await getAdminAccessTokenAndCheckIfExpired();
+    // dio
+    Dio dio = new Dio();
+    dio.options.headers = {HttpHeaders.authorizationHeader: 'Bearer $token'};
+    try {
+      var response;
+
+        response = await dio.put(endpoint, data: { 'group': group});
+
+      var responseMessage;
+
+      if (response.statusCode == 200) {
+        log('success updating coaster db for encoded ');
+        responseMessage = "SUCCESS_UPDATING_DB";
+        return responseMessage;
+      } else {
+        responseMessage = "FAIL_UPDATING_DB";
+        return responseMessage;
+      }
+    } on DioError catch (e) {
+      return "FAIL_UPDATING_DB";
+    }
+  }
+
   // --------------------------------------------now dio---------------------------------------------------------
   // disable coaster function - change bool
   // PUT /host/coaster/{coasterUID} body: { paused: true|false, disabled: true|false, name: 'string'}

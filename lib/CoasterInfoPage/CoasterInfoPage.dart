@@ -54,10 +54,10 @@ class _CoasterInfoPageState extends State<CoasterInfoPage> {
            //  height: height * 1.5,
            //    child:
               Container(
-                padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
                 child: ListView(
                   children: [
-                    CoasterActionButtons(),
+                    CoasterActionButtons(coasterInfo: widget.coasterInfo),
                     CoasterAttributesComp(coasterInfo: widget.coasterInfo,),
                     // Spacer()
                   ],

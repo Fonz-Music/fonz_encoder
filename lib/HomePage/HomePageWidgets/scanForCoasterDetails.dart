@@ -26,6 +26,22 @@ Future<String> writeUrlToCoaster(uidFromScannedTag) async {
     return updateCoasterResponse;
   }
 }
+Future<String> writeFonzUrlToCoaster(uidFromScannedTag) async {
+  log("starting to write");
+  // write url
+  var successfulWrite =
+  await WriteTagFunctions.writeUrlOnTag(uidFromScannedTag);
+  if (!successfulWrite) {
+    return "DID_NOT_WRITE_URL";
+  } else {
+    // update api
+    var updateCoasterResponse =
+    await CoasterManagementApi.classifyCoasterAsEncoded(
+        uidFromScannedTag, true, "");
+
+    return updateCoasterResponse;
+  }
+}
 
 Future<List<String>> scanForTagUid() async {
   log("starting the scan");
