@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:fonz_encoder/GlobalComponents/FrontEnd/FrontEndConstants.dart';
 import 'package:fonz_encoder/CoasterInfoPage/InfoPageComponents/CoasterAttributes.dart';
+import 'package:fonz_encoder/CoasterInfoPage/InfoPageComponents/ActionButtons.dart';
 
 class CoasterInfoPage extends StatefulWidget {
 
@@ -56,6 +57,7 @@ class _CoasterInfoPageState extends State<CoasterInfoPage> {
                 padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
                 child: ListView(
                   children: [
+                    CoasterActionButtons(),
                     CoasterAttributesComp(coasterInfo: widget.coasterInfo,),
                     // Spacer()
                   ],
