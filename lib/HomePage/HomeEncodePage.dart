@@ -132,7 +132,7 @@ class _HomeEncodePageState extends State<HomeEncodePage> {
     // if successful
     if (encodeTagResponse == "SUCCESS_ON_READ" ||
         encodeTagResponse == "NFC_NOT_SUPPORTED") {
-      Timer(Duration(milliseconds: 4000), () async {
+      Timer(Duration(milliseconds: 2500), () async {
         encodeTagResponse = "READING_TAG";
         // widget.notifyParent();
 

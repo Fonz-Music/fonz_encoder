@@ -1,7 +1,8 @@
 import 'dart:developer';
-import 'package:flutter/services.dart';
+
 import 'package:flutter/material.dart';
 import 'package:fonz_encoder/GlobalComponents/FrontEnd/FrontEndConstants.dart';
+import 'package:fonz_encoder/CoasterInfoPage/InfoPageComponents/CoasterAttributes.dart';
 
 class CoasterInfoPage extends StatefulWidget {
 
@@ -48,77 +49,25 @@ class _CoasterInfoPageState extends State<CoasterInfoPage> {
             ),
             opacity: 0.4,
           ),
-          Container(
-            // height: height * .9,
-              padding: EdgeInsets.fromLTRB(20, 40, 20, 0),
-            child: Column(
-              children: [
+           // SizedBox(
+           //  height: height * 1.5,
+           //    child:
+              Container(
+                padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                child: ListView(
+                  children: [
+                    CoasterAttributesComp(coasterInfo: widget.coasterInfo,),
+                    // Spacer()
+                  ],
+                ),
+              ),
+            // )
 
-
-                TagInfoContent("tagUID", widget.coasterInfo["body"].coaster.coasterId),
-                TagInfoContent("encoded", widget.coasterInfo["body"].coaster.encoded.toString()),
-                TagInfoContent("group", widget.coasterInfo["body"].coaster.group),
-                TagInfoContent("userId", widget.coasterInfo["body"].coaster.userId),
-                TagInfoContent("coasterName", widget.coasterInfo["body"].coaster.name),
-                TagInfoContent("hostName", widget.coasterInfo["body"].hostName),
-                TagInfoContent("sessionId", widget.coasterInfo["body"].session.sessionId),
-                TagInfoContent("provider", widget.coasterInfo["body"].session.provider),
-                Spacer()
-              ],
-            )
-          ),
         ],
       ),
     );
   }
 
-  Widget TagInfoContent(String title, String content) {
-    return Column(
-      children: [
-        Row(
-          children: [
-            Text(
-              "$title: ",
-              style: TextStyle(
-                fontFamily: FONZFONTTWO,
-                fontSize: HEADINGFIVE,
-                color: determineColorThemeTextInverse(),
-              ),
-              textAlign: TextAlign.left,
-            ),
-            Spacer(),
-            // copy to clipboard
-            MaterialButton(
-            child: Icon(
-                Icons.copy,
-                color: Colors.white,
-            ),
-                onPressed: () {
-                  _copyToClipboard(content);
-                }
-              )
 
-    ],
-    ),
-
-        Text(
-          "$content",
-          style: TextStyle(
-            fontFamily: FONZFONTTWO,
-            fontSize: HEADINGFIVE,
-            color: LILAC,
-          ),
-          textAlign: TextAlign.left,
-        ),
-      ],
-    );
-  }
-
-  Future<void> _copyToClipboard(String textToCopy) async {
-    await Clipboard.setData(ClipboardData(text: textToCopy));
-    // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-    //   content: Text('Copied to clipboard'),
-    // ));
-  }
 
 }
