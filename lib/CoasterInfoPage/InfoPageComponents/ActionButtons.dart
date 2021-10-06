@@ -18,6 +18,7 @@ class _CoasterActionButtonsState extends State<CoasterActionButtons> {
     return Container(
       child: Row(
         children: [
+          Spacer(),
           MaterialButton(
 
             child: Container(
@@ -79,6 +80,7 @@ class _CoasterActionButtonsState extends State<CoasterActionButtons> {
               // widget.notifyParent();
             },
           ),
+          Spacer()
         ],
       ),
     );

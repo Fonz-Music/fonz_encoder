@@ -53,7 +53,7 @@ class _CoasterAttributesCompState extends State<CoasterAttributesComp> {
               style: TextStyle(
                 fontFamily: FONZFONTTWO,
                 fontSize: HEADINGFIVE,
-                color: determineColorThemeTextInverse(),
+                color: Colors.white,
               ),
               textAlign: TextAlign.left,
             ),
