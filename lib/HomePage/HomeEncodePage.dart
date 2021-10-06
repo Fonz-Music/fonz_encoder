@@ -14,7 +14,7 @@ import 'package:fonz_encoder/HomePage/HomePageWidgets/HomePageResponses/SuccessR
 import 'package:fonz_encoder/GlobalComponents/FrontEnd/TapYourPhoneAmber.dart';
 import 'package:fonz_encoder/main.dart';
 
-import 'HomePageWidgets/CoasterInfoPage.dart';
+import '../CoasterInfoPage/CoasterInfoPage.dart';
 import 'HomePageWidgets/GetCoasterInfoButton.dart';
 import 'HomePageWidgets/HomePageResponses/CoasterHasNoHost.dart';
 import 'HomePageWidgets/HomePageResponses/SuccessWriteUid.dart';
