@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:fonz_encoder/ApiFunctions/GuestApi/GuestGetCoasterApi.dart';
+import 'package:fonz_encoder/ApiFunctions/HostApi/CoasterManagementApi.dart';
 
 import 'package:fonz_encoder/GlobalComponents/FrontEnd/FrontEndConstants.dart';
 import 'package:fonz_encoder/GlobalComponents/Objects/CoasterObject.dart';
@@ -132,7 +133,7 @@ class _HomeEncodePageState extends State<HomeEncodePage> {
     // if successful
     if (encodeTagResponse == "SUCCESS_ON_READ" ||
         encodeTagResponse == "NFC_NOT_SUPPORTED") {
-      Timer(Duration(milliseconds: 3000), () async {
+      Timer(Duration(milliseconds: 4000), () async {
         encodeTagResponse = "READING_TAG";
         // widget.notifyParent();
 
@@ -141,6 +142,7 @@ class _HomeEncodePageState extends State<HomeEncodePage> {
         }
         else if (commandToLaunch == "GET_COASTER_INFO") {
           var coasterInfo = await GuestGetCoasterApi.getCoasterDetails(tagUid);
+          // var coasterInfo = await CoasterManagementApi.getSingleOwnedCoaster(tagUid);
           log("coaster info is " + coasterInfo.toString());
           showModalBottomSheet<dynamic>(context: context,
               isScrollControlled: true,

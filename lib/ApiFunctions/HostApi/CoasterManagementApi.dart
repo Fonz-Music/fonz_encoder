@@ -68,6 +68,52 @@ class CoasterManagementApi {
     }
   }
 
+  static Future<Map> getSingleOwnedCoaster(
+      String coasterUID,
+      ) async {
+    String endpoint = address + host + coasters + coasterUID;
+    String token = await getAdminAccessTokenAndCheckIfExpired();
+    log("url is " + endpoint);
+    // dio
+    Dio dio = new Dio();
+    dio.options.headers = {HttpHeaders.authorizationHeader: 'Bearer $token'};
+    try {
+      var response = await dio.get(endpoint);
+
+      if (response.statusCode == 200) {
+        log("success getting coaster details");
+        if (response.data.isEmpty || response.data == null) {
+          response.statusCode = 404;
+        }
+      }
+      else {
+        // FlutterCrashlytics().log(
+        //     'error on "getSingleOwnedCoaster" api call with status of ${response.statusCode} & body of '
+        //     // '${response.body}');
+        //         '${response.data}');
+        log('error with response code ${response.statusCode} and body '
+        // '${response.body}');
+            '${response.data}');
+//      return null;
+      }
+      return {
+        "statusCode": response.statusCode,
+        "code": response.statusMessage,
+        "body": response.data
+      };
+    } on DioError catch (e) {
+      // FlutterCrashlytics().log(
+      //     'error on "getSingleOwnedCoaster" api call with status of ${e.response.statusCode} & body of '
+      //     // '${response.body}');
+      //         '${e.response.data}');
+      return {
+        "statusCode": e.response.statusCode,
+        "code": e.response.statusMessage,
+        "body": e.response.data
+      };
+    }
+  }
+
   // --------------------------------------------now dio---------------------------------------------------------
   // disable coaster function - change bool
   // PUT /host/coaster/{coasterUID} body: { paused: true|false, disabled: true|false, name: 'string'}

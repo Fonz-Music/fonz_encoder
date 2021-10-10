@@ -49,6 +49,17 @@ class GuestGetCoasterApi {
       // log("this is msg " + e.response.statusMessage.toString());
       log("this is status " + e.response
           .statusCode.toString());
+      // if 403
+      if (e.response
+          .statusCode == 403) {
+        var decoderResp = GetHostCoasterDecoder(coaster: CoasterDecoder(name: "", userId: "", encoded: false, group: "", coasterId: uid), session: SessionDecoder(sessionId: "", provider: ""), hostName: "");
+        decoderResp.coaster.coasterId = uid;
+        return {
+          "statusCode": e.response.data["status"],
+          "code": e.response.data["code"],
+          "body": decoderResp
+        };
+      }
       //
       // log("this is mssg" + e.response.data["message"].toString());
       // print("this is mssg" + e.response.data["code"].toString());

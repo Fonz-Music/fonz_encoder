@@ -29,14 +29,14 @@ class _CoasterAttributesCompState extends State<CoasterAttributesComp> {
           children: [
 
 
-            TagInfoContent("tagUID", widget.coasterInfo["body"].coaster.coasterId),
-            TagInfoContent("encoded", widget.coasterInfo["body"].coaster.encoded.toString()),
-            TagInfoContent("group", widget.coasterInfo["body"].coaster.group),
-            TagInfoContent("userId", widget.coasterInfo["body"].coaster.userId),
-            TagInfoContent("coasterName", widget.coasterInfo["body"].coaster.name),
-            TagInfoContent("hostName", widget.coasterInfo["body"].hostName),
-            TagInfoContent("sessionId", widget.coasterInfo["body"].session.sessionId),
-            TagInfoContent("provider", widget.coasterInfo["body"].session.provider),
+            TagInfoContent("tagUID", widget.coasterInfo["body"].coaster.coasterId  ?? ""),
+            TagInfoContent("encoded", widget.coasterInfo["body"].coaster.encoded.toString()  ?? ""),
+            TagInfoContent("group", widget.coasterInfo["body"].coaster.group  ?? ""),
+            TagInfoContent("userId", widget.coasterInfo["body"].coaster.userId  ?? ""),
+            TagInfoContent("coasterName", widget.coasterInfo["body"].coaster.name  ?? ""),
+            TagInfoContent("hostName", widget.coasterInfo["body"].hostName  ?? ""),
+            TagInfoContent("sessionId", widget.coasterInfo["body"].session.sessionId  ?? ""),
+            TagInfoContent("provider", widget.coasterInfo["body"].session.provider  ?? ""),
             Spacer()
           ],
         )
