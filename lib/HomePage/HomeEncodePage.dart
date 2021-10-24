@@ -8,6 +8,7 @@ import 'package:fonz_encoder/ApiFunctions/HostApi/CoasterManagementApi.dart';
 
 import 'package:fonz_encoder/GlobalComponents/FrontEnd/FrontEndConstants.dart';
 import 'package:fonz_encoder/GlobalComponents/Objects/CoasterObject.dart';
+import 'package:fonz_encoder/HomePage/HomePageWidgets/AddTagToDbButton.dart';
 
 import 'package:fonz_encoder/HomePage/HomePageWidgets/HomePageResponses/FailPartyJoin.dart';
 
@@ -162,6 +163,10 @@ class _HomeEncodePageState extends State<HomeEncodePage> {
         if (commandToLaunch == "WRITE_URL_TO_COASTER") {
           encodeTagResponse = await writeUrlToCoaster(tagUid, venueTagBelongs);
         }
+        else if (commandToLaunch == "ADD_TO_DB") {
+          var coasterInfo = await AdminWebApi.addTagToDatabase(tagUid);
+          encodeTagResponse = await writeUrlToCoaster(tagUid, venueTagBelongs);
+        }
         else if (commandToLaunch == "GET_COASTER_INFO") {
           var coasterInfo = await GuestGetCoasterApi.getCoasterDetails(tagUid);
           // var coasterInfo = await AdminWebApi.getAdminCoasterDetails(tagUid);
@@ -225,6 +230,7 @@ class _HomeEncodePageState extends State<HomeEncodePage> {
 
                 ],
               ),
+              AddTagToDbButton(notifyParent: refresh)
 
             ],
           ),
