@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:fonz_encoder/ApiFunctions/AdminWebApi.dart';
 import 'package:fonz_encoder/GlobalComponents/FrontEnd/FrontEndConstants.dart';
@@ -97,7 +99,8 @@ class _CoasterActionButtonsState extends State<CoasterActionButtons> {
 
 Widget DetermineIfReleaseCoasterShows(String hostName, String tagUid) {
   // if has host
-  if (hostName != null || hostName != "") {
+  log("hostname is " + hostName);
+  if (hostName != null && hostName != "") {
     return MaterialButton(
 
       child: Container(
