@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:fonz_encoder/ApiFunctions/AdminWebApi.dart';
 import 'package:fonz_encoder/ApiFunctions/GuestApi/GuestGetCoasterApi.dart';
 import 'package:fonz_encoder/ApiFunctions/HostApi/CoasterManagementApi.dart';
 
@@ -28,7 +29,9 @@ String tagUid = "";
 bool launchedNfcToJoinParty = false;
 
 String groupCoasterBelongs = "";
+String venueTagBelongs = "";
 String commandToLaunch = "";
+List<String> _potentialVenues = ['party', 'pub', 'rest', 'fonzhq'];
 
 class HomeEncodePage extends StatefulWidget {
   HomeEncodePage({Key key, this.notifyParent}) : super(key: key);
@@ -88,7 +91,25 @@ class _HomeEncodePageState extends State<HomeEncodePage> {
                 width: width * 0.3,
                 padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                 child: Text(
-                  "tag group:",
+                  "venue:",
+                  style: TextStyle(
+                    fontFamily: FONZFONTTWO,
+                    fontSize: HEADINGFIVE,
+                    color: determineColorThemeTextInverse(),
+                  ),
+                  textAlign: TextAlign.left,
+                ),
+              ),
+              SelectVenue(),
+            ],
+          ),
+          Row(
+            children: [
+              Container(
+                width: width * 0.3,
+                padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                child: Text(
+                  "group:",
                   style: TextStyle(
                     fontFamily: FONZFONTTWO,
                     fontSize: HEADINGFIVE,
@@ -98,6 +119,7 @@ class _HomeEncodePageState extends State<HomeEncodePage> {
                 ),
               ),
               GroupNameInput(),
+
             ],
           ),
 
@@ -108,7 +130,7 @@ class _HomeEncodePageState extends State<HomeEncodePage> {
           HomePageMainBody(widget.notifyParent),
           //   }
           // ),
-          Spacer()
+          // Spacer()
         ],
       ),
     );
@@ -133,7 +155,7 @@ class _HomeEncodePageState extends State<HomeEncodePage> {
     // if successful
     if (encodeTagResponse == "SUCCESS_ON_READ" ||
         encodeTagResponse == "NFC_NOT_SUPPORTED") {
-      Timer(Duration(milliseconds: 4000), () async {
+      Timer(Duration(milliseconds: 4500), () async {
         encodeTagResponse = "READING_TAG";
         // widget.notifyParent();
 
@@ -142,6 +164,7 @@ class _HomeEncodePageState extends State<HomeEncodePage> {
         }
         else if (commandToLaunch == "GET_COASTER_INFO") {
           var coasterInfo = await GuestGetCoasterApi.getCoasterDetails(tagUid);
+          // var coasterInfo = await AdminWebApi.getAdminCoasterDetails(tagUid);
           // var coasterInfo = await CoasterManagementApi.getSingleOwnedCoaster(tagUid);
           log("coaster info is " + coasterInfo.toString());
           showModalBottomSheet<dynamic>(context: context,
@@ -186,7 +209,7 @@ class _HomeEncodePageState extends State<HomeEncodePage> {
       );
     } else if (encodeTagResponse == "HOME") {
       return Container(
-        height: height * 0.7,
+        // height: height * 0.7,
         child: Column(
           children: [
             Container(
@@ -316,6 +339,55 @@ class _HomeEncodePageState extends State<HomeEncodePage> {
           validator: (value) => value.isEmpty ? 'Email can\'t be empty' : null,
           onSaved: (value) => groupCoasterBelongs = value.trim(),
         ),
+      ),
+    );
+  }
+  Widget SelectVenue() {
+    final size = MediaQuery.of(context).size;
+    final width = size.width;
+    final height = size.height;
+    return Container(
+      padding: EdgeInsets.fromLTRB(10, 5, 5, 5),
+      height: 50,
+      width: width * 0.6,
+      child: Neumorphic(
+        style: NeumorphicStyle(
+            color: Colors.white,
+            shadowDarkColor: SHADOWGREY,
+            shadowLightColor: SHADOWGREY),
+        child: Container(
+          padding: EdgeInsets.fromLTRB(10,0, 0, 0),
+          child: DropdownButton<String>(
+            hint: venueTagBelongs == null
+                ? Text('dropdown')
+                : Text(
+              venueTagBelongs,
+              style: TextStyle(
+                fontFamily: FONZFONTTWO,
+                fontSize: HEADINGFIVE,
+                color: DARKERGREY,
+              ),
+            ),
+            style: TextStyle(
+              fontFamily: FONZFONTTWO,
+              fontSize: HEADINGFIVE,
+              color: DARKERGREY,
+            ),
+            isExpanded: true,
+            onChanged: (value) {
+              setState(() {
+                print("venue " + value);
+                venueTagBelongs = value;
+              });
+            },
+            items: _potentialVenues.map((String value) {
+              return new DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+          ),
+        )
       ),
     );
   }
