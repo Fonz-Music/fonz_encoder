@@ -210,15 +210,24 @@ class _HomeEncodePageState extends State<HomeEncodePage> {
     } else if (encodeTagResponse == "HOME") {
       return Container(
         // height: height * 0.7,
-        child: Column(
-          children: [
-            Container(
-              height: height * 0.1,
-              // child: Spacer()
-            ),
-            EncodeATagButton(notifyParent: refresh),
-            GetCoasterInfoButton(notifyParent: refresh)
-          ],
+        child: Center(
+          child: Column(
+            children: [
+              Container(
+                height: height * 0.1,
+                // child: Spacer()
+              ),
+              Row(
+                children: [
+                  GetCoasterInfoButton(notifyParent: refresh),
+                  Spacer(),
+                  EncodeATagButton(notifyParent: refresh),
+
+                ],
+              ),
+
+            ],
+          ),
         ),
       );
     } else if (encodeTagResponse == "READING_TAG") {
@@ -271,33 +280,6 @@ class _HomeEncodePageState extends State<HomeEncodePage> {
         errorImage: getDisableIcon(),
       );
     }
-
-    // }
-    // else {
-    //   if (pressedNfcButtonToJoinPartu) {
-    //     Timer(Duration(seconds: 10), () {
-    //       pressedNfcButtonToJoinPartu = false;
-    //       if (!launchedNfcToJoinParty) {
-    //         refresh();
-    //       }
-    //
-    //     });
-    //     return TapYourPhoneAmber();
-    //   }
-    //   return Container(
-    //     height: height * 0.7,
-    //     child: Column(
-    //       children: [
-    //
-    //           Container(
-    //               height: height * 0.1,
-    //               // child: Spacer()
-    //           ),
-    //           EncodeATagButton(notifyParent: refresh),
-    //       ],
-    //     ),
-    //   );
-    // }
   }
 
   Widget GroupNameInput() {

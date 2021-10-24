@@ -21,60 +21,68 @@ class EncodeATagButton extends StatefulWidget {
 class _EncodeATagButtonState extends State<EncodeATagButton> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-            child: NeumorphicButton(
-              child: Container(
-                width: 200,
-                height: 200,
-                child:
-                Container(
-                  padding: const EdgeInsets.all(70),
-                  child: Image(
-                    image: AssetImage("assets/fonzIcons/plusIconAmber.png"),
 
+    final size = MediaQuery.of(context).size;
+    final width = size.width;
+    final height = size.height;
+
+    return SizedBox(
+      width: width * .45,
+      child: Center(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+              child: NeumorphicButton(
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  child:
+                  Container(
+                    padding: const EdgeInsets.all(30),
+                    child: Image(
+                      image: AssetImage("assets/fonzIcons/plusIconAmber.png"),
+
+                    ),
                   ),
                 ),
+                style: NeumorphicStyle(
+                    shape: NeumorphicShape.flat,
+                    boxShape: NeumorphicBoxShape.circle(),
+                    border: NeumorphicBorder(width: 2, color: AMBER),
+                    color: determineColorThemeBackground(),
+                    shadowDarkColor: determineLightShadowRoundButton(),
+                    shadowLightColor: determineLightShadowRoundButton()
+                ),
+                onPressed: () async {
+
+                  encodeTagResponse = "READING_TAG";
+                  // widget.notifyParent();
+                  commandToLaunch = "WRITE_URL_TO_COASTER";
+                  var tagUidResp = await scanForTagUid();
+                  encodeTagResponse = tagUidResp[0];
+                  tagUid = tagUidResp[1];
+
+                  launchedNfcToJoinParty = true;
+                  widget.notifyParent();
+                },
+
               ),
-              style: NeumorphicStyle(
-                  shape: NeumorphicShape.flat,
-                  boxShape: NeumorphicBoxShape.circle(),
-                  border: NeumorphicBorder(width: 2, color: AMBER),
-                  color: determineColorThemeBackground(),
-                  shadowDarkColor: determineLightShadowRoundButton(),
-                  shadowLightColor: determineLightShadowRoundButton()
-              ),
-              onPressed: () async {
-
-                encodeTagResponse = "READING_TAG";
-                // widget.notifyParent();
-                commandToLaunch = "WRITE_URL_TO_COASTER";
-                var tagUidResp = await scanForTagUid();
-                encodeTagResponse = tagUidResp[0];
-                tagUid = tagUidResp[1];
-
-                launchedNfcToJoinParty = true;
-                widget.notifyParent();
-              },
-
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-            child: new Text(
-              "encode a tag",
-              style: TextStyle(
-                fontFamily: FONZFONTTWO,
-                fontSize: HEADINGTHREE,
-                color: determineColorThemeTextInverse(),
+            Padding(
+              padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+              child: new Text(
+                "encode a tag",
+                style: TextStyle(
+                  fontFamily: FONZFONTTWO,
+                  fontSize: HEADINGFIVE,
+                  color: determineColorThemeTextInverse(),
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

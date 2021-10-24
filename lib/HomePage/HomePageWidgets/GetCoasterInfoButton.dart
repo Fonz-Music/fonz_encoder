@@ -32,14 +32,15 @@ class _GetCoasterInfoButtonState extends State<GetCoasterInfoButton> {
               padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
               child: NeumorphicButton(
                 child: Container(
-                  width: 50,
-                  height: 50,
+                  width: 100,
+                  height: 100,
                   child:
                   Container(
-                      padding: const EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(30),
                       child: Icon(
                         Icons.info_outline_rounded,
                         color: LILAC,
+                        size: 30,
                       )
                     // child: Image(
                     //   image: AssetImage("assets/fonzIcons/spotifyIconGreen.png"),
@@ -76,7 +77,7 @@ class _GetCoasterInfoButtonState extends State<GetCoasterInfoButton> {
                 "get coaster info",
                 style: TextStyle(
                   fontFamily: FONZFONTTWO,
-                  fontSize: HEADINGSIX,
+                  fontSize: HEADINGFIVE,
                   color: determineColorThemeTextInverse(),
                 ),
                 textAlign: TextAlign.center,
