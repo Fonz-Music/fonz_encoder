@@ -10,11 +10,13 @@ import 'package:fonz_encoder/NfcFunctions/ReadTagFunctions.dart';
 
 import '../HomeEncodePage.dart';
 
-Future<String> writeUrlToCoaster(uidFromScannedTag) async {
+Future<String> writeUrlToCoaster(uidFromScannedTag, venue) async {
   log("starting to write");
   // write url
+  // var successfulWrite =
+  //     await WriteTagFunctions.writeUrlOnTag(uidFromScannedTag);
   var successfulWrite =
-      await WriteTagFunctions.writeUrlOnTag(uidFromScannedTag);
+  await WriteTagFunctions.writeUrlOnTagWithVenue(uidFromScannedTag, venue);
   if (!successfulWrite) {
     return "DID_NOT_WRITE_URL";
   } else {

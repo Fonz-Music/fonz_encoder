@@ -160,7 +160,7 @@ class _HomeEncodePageState extends State<HomeEncodePage> {
         // widget.notifyParent();
 
         if (commandToLaunch == "WRITE_URL_TO_COASTER") {
-          encodeTagResponse = await writeUrlToCoaster(tagUid);
+          encodeTagResponse = await writeUrlToCoaster(tagUid, venueTagBelongs);
         }
         else if (commandToLaunch == "GET_COASTER_INFO") {
           var coasterInfo = await GuestGetCoasterApi.getCoasterDetails(tagUid);

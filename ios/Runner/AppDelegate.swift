@@ -13,6 +13,8 @@ import SafariServices
     
     var uidForWriting : String = "sample"
     
+    var venueForWriting : String = ""
+    
     
 // --------------------------------------------- Write Fonz URL to Coaster Funcs -----------------------------------------------------------------
     // swift protcol if error
@@ -41,10 +43,22 @@ import SafariServices
                 // ensures that it is an NDEF tag
                 tag.queryNDEFStatus() { (status: NFCNDEFStatus, capacity: Int, error: Error?) in
 
-                    // inits the URL
-                    let uriPayloadFromURL = NFCNDEFPayload.wellKnownTypeURIPayload(
-                        url: URL(string: "https://fonzmusic.com/\(self.uidForWriting)")!
+                    var uriPayloadFromURL = NFCNDEFPayload.wellKnownTypeURIPayload(
+                        url: URL(string: "https://fonzmusic.com/")!
                     )!
+                    if self.venueForWriting == "" {
+                        // inits the URL
+                        uriPayloadFromURL = NFCNDEFPayload.wellKnownTypeURIPayload(
+                            url: URL(string: "https://fonzmusic.com/\(self.uidForWriting)")!
+                        )!
+                    }
+                    else {
+                        // inits the URL
+                        uriPayloadFromURL = NFCNDEFPayload.wellKnownTypeURIPayload(
+                            url: URL(string: "https://fonzmusic.com/\(self.venueForWriting)/\(self.uidForWriting)")!
+                        )!
+                    }
+                    
                     let myMessage = NFCNDEFMessage.init(records: [uriPayloadFromURL])
                     // function writes the url onto the tag
                     tag.writeNDEF(myMessage) { (error) in
@@ -156,6 +170,16 @@ import SafariServices
                     // gets the token that was passed in
                     let token =  args!["uid"] as? String
                     self?.uidForWriting = token ?? "ten"
+                    self?.writeFonzToTag(result: result)
+                }
+                else if call.method == "writeFonzUrlWithVenue" {
+                    print("writing to coaster")
+                    let args = call.arguments as? Dictionary<String, Any>
+                    // gets the token that was passed in
+                    let token =  args!["uid"] as? String
+                    self?.uidForWriting = token ?? "ten"
+                    let venue =  args!["venue"] as? String
+                    self?.venueForWriting = venue ?? "ten"
                     self?.writeFonzToTag(result: result)
                 }
                 // otherwise ignore and give error
