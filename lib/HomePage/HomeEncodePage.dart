@@ -168,10 +168,10 @@ class _HomeEncodePageState extends State<HomeEncodePage> {
           encodeTagResponse = await writeUrlToCoaster(tagUid, venueTagBelongs);
         }
         else if (commandToLaunch == "GET_COASTER_INFO") {
-          var coasterInfo = await GuestGetCoasterApi.getCoasterDetails(tagUid);
-          // var coasterInfo = await AdminWebApi.getAdminCoasterDetails(tagUid);
+          // var coasterInfo = await GuestGetCoasterApi.getCoasterDetails(tagUid);
+          var coasterInfo = await AdminWebApi.getAdminCoasterDetails(tagUid);
           // var coasterInfo = await CoasterManagementApi.getSingleOwnedCoaster(tagUid);
-          log("coaster info is " + coasterInfo.toString());
+          log("coaster info is " + coasterInfo.body.toString());
           showModalBottomSheet<dynamic>(context: context,
               isScrollControlled: true,
               builder: (BuildContext bc) {

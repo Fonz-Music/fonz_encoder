@@ -129,6 +129,25 @@ class SessionDecoder {
     userId = json['userId'];
   }
 }
+
+class UserDecoder {
+
+  String email;
+  String displayName;
+  String userId;
+
+  UserDecoder({
+    this.email,
+    this.userId,
+    this.displayName,});
+
+  UserDecoder.fromJson(Map<String, dynamic> json) {
+    email = json['email'];
+    displayName = json['displayName'];
+    userId = json['userId'];
+  }
+}
+
 class GetHostCoasterDecoder {
 
   var coaster;
@@ -151,5 +170,27 @@ class GetHostCoasterDecoder {
 
   }
 }
+class GetAdminCoasterDecoder {
 
+  var coaster;
+  var session;
+  var user;
+
+  GetAdminCoasterDecoder({
+    this.coaster,
+    this.session,
+    this.user
+  });
+
+  GetAdminCoasterDecoder.fromJson(Map<String, dynamic> json) {
+    coaster = json['coaster'];
+    session = json['session'];
+    user = json['user'];
+
+    coaster = CoasterDecoder.fromJson(json['coaster']);
+    session = SessionDecoder.fromJson(json['session']);
+    user = UserDecoder.fromJson(json['user']);
+
+  }
+}
 

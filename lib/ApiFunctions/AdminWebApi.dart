@@ -21,7 +21,7 @@ String token = "token/";
 class AdminWebApi {
 
 
-  static Future<Map> getAdminToken() async {
+  static Future<BasicHttpResponse> getAdminToken() async {
     log("im getting called ");
     String endpoint = addressWeb + admin + token;
     String jwtToken = "";
@@ -59,22 +59,17 @@ class AdminWebApi {
       }
       // log("response message " + response.statusMessage);
       // log("response code " + response.statusCode.toString());
-      return {"statusCode": response.statusCode, "code": response.statusMessage,
-        "body": response.data};
+      return BasicHttpResponse(response.statusCode, response.statusMessage, response.data);
     }
     on DioError catch (e) {
       log("status code " +e.response.data["statusCode"].toString());
       log("status code " +e.response.toString());
-      return {
-        "statusCode": e.response.data["status"],
-        "code": e.response.data["code"],
-        "body": e.response.data["message"]
-      };
+      return BasicHttpResponse(e.response.statusCode, e.response.statusMessage, e.response.data);
     }
 
   }
 
-  static Future<Map> getAdminCoasterDetails(String uid) async {
+  static Future<BasicHttpResponse> getAdminCoasterDetails(String uid) async {
     log("im getting called ");
     String endpoint = address + admin + coasters + uid;
     String token = "";
@@ -94,7 +89,7 @@ class AdminWebApi {
 //      log('success got coasters');
         log("success");
         log("resp is " + response.data.toString());
-        response.data = GetHostCoasterDecoder.fromJson(response.data);
+        response.data = GetAdminCoasterDecoder.fromJson(response.data);
       } else {
         log("error ");
         log('error with response code ${response.statusCode} and body '
@@ -104,8 +99,7 @@ class AdminWebApi {
       }
       // log("response message " + response.statusMessage);
       // log("response code " + response.statusCode.toString());
-      return {"statusCode": response.statusCode, "code": response.statusMessage,
-        "body": response.data};
+      return BasicHttpResponse(response.statusCode, response.statusMessage, response.data);
     }
     on DioError catch (e) {
       // log("this is msg " + e.response.statusMessage.toString());
@@ -114,27 +108,18 @@ class AdminWebApi {
       // if 403
       if (e.response
           .statusCode == 403) {
-        var decoderResp = GetHostCoasterDecoder(coaster: CoasterDecoder(name: "", userId: "", encoded: false, group: "", coasterId: uid), session: SessionDecoder(sessionId: "", provider: ""), hostName: "");
-        decoderResp.coaster.coasterId = uid;
-        return {
-          "statusCode": e.response.data["status"],
-          "code": e.response.data["code"],
-          "body": decoderResp
-        };
+        var decoderResp = GetAdminCoasterDecoder(coaster: CoasterDecoder(name: "", userId: "", encoded: false, group: "", coasterId: uid), session: SessionDecoder(sessionId: "", provider: ""), user: UserDecoder());        decoderResp.coaster.coasterId = uid;
+        return BasicHttpResponse(e.response.statusCode, e.response.statusMessage, decoderResp);
       }
       //
       // log("this is mssg" + e.response.data["message"].toString());
       // print("this is mssg" + e.response.data["code"].toString());
-      return {
-        "statusCode": e.response.data["status"],
-        "code": e.response.data["code"],
-        "body": e.response.data["message"]
-      };
+      return BasicHttpResponse(e.response.statusCode, e.response.statusMessage, e.response.data);
     }
 
   }
 
-  static Future<Map> addTagToDatabase(String uid) async {
+  static Future<BasicHttpResponse> addTagToDatabase(String uid) async {
     log("im getting called ");
     String endpoint = address + admin + coasters + uid;
     String token = "";
@@ -164,8 +149,7 @@ class AdminWebApi {
       }
       // log("response message " + response.statusMessage);
       // log("response code " + response.statusCode.toString());
-      return {"statusCode": response.statusCode, "code": response.statusMessage,
-        "body": response.data};
+      return BasicHttpResponse(response.statusCode, response.statusMessage, response.data);
     }
     on DioError catch (e) {
       // log("this is msg " + e.response.statusMessage.toString());
@@ -176,25 +160,17 @@ class AdminWebApi {
           .statusCode == 403) {
         var decoderResp = GetHostCoasterDecoder(coaster: CoasterDecoder(name: "", userId: "", encoded: false, group: "", coasterId: uid), session: SessionDecoder(sessionId: "", provider: ""), hostName: "");
         decoderResp.coaster.coasterId = uid;
-        return {
-          "statusCode": e.response.data["status"],
-          "code": e.response.data["code"],
-          "body": decoderResp
-        };
+        return BasicHttpResponse(e.response.statusCode, e.response.statusMessage, decoderResp);
       }
       //
       // log("this is mssg" + e.response.data["message"].toString());
       // print("this is mssg" + e.response.data["code"].toString());
-      return {
-        "statusCode": e.response.data["status"],
-        "code": e.response.data["code"],
-        "body": e.response.data["message"]
-      };
+      return BasicHttpResponse(e.response.statusCode, e.response.statusMessage, e.response.data);
     }
 
   }
 
-  static Future<Map> releaseTagFromHost(String uid) async {
+  static Future<BasicHttpResponse> releaseTagFromHost(String uid) async {
     log("im getting called ");
     String endpoint = address + admin + coasters + uid;
     String token = "";
@@ -224,8 +200,7 @@ class AdminWebApi {
       }
       // log("response message " + response.statusMessage);
       // log("response code " + response.statusCode.toString());
-      return {"statusCode": response.statusCode, "code": response.statusMessage,
-        "body": response.data};
+      return BasicHttpResponse(response.statusCode, response.statusMessage, response.data);
     }
     on DioError catch (e) {
       // log("this is msg " + e.response.statusMessage.toString());
@@ -234,22 +209,13 @@ class AdminWebApi {
       // if 403
       if (e.response
           .statusCode == 403) {
-        var decoderResp = GetHostCoasterDecoder(coaster: CoasterDecoder(name: "", userId: "", encoded: false, group: "", coasterId: uid), session: SessionDecoder(sessionId: "", provider: ""), hostName: "");
-        decoderResp.coaster.coasterId = uid;
-        return {
-          "statusCode": e.response.data["status"],
-          "code": e.response.data["code"],
-          "body": decoderResp
-        };
+        var decoderResp = GetAdminCoasterDecoder(coaster: CoasterDecoder(name: "", userId: "", encoded: false, group: "", coasterId: uid), session: SessionDecoder(sessionId: "", provider: ""), user: UserDecoder());        decoderResp.coaster.coasterId = uid;
+        return BasicHttpResponse(e.response.statusCode, e.response.statusMessage, decoderResp);
       }
       //
       // log("this is mssg" + e.response.data["message"].toString());
       // print("this is mssg" + e.response.data["code"].toString());
-      return {
-        "statusCode": e.response.data["status"],
-        "code": e.response.data["code"],
-        "body": e.response.data["message"]
-      };
+      return BasicHttpResponse(e.response.statusCode, e.response.statusMessage, e.response.data);
     }
 
   }

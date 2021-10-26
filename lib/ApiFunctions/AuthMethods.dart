@@ -27,7 +27,7 @@ Future<String> getAdminAccessTokenAndCheckIfExpired() async {
     // generate accessToken
       // create anon account endpoint
       var adminAccessTokenResp = await AdminWebApi.getAdminToken();
-      accessToken = adminAccessTokenResp["body"]["accessToken"];
+      accessToken = adminAccessTokenResp.body["accessToken"];
   }
   return accessToken;
 }

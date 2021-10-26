@@ -74,7 +74,7 @@ class _GetCoasterInfoButtonState extends State<GetCoasterInfoButton> {
             Padding(
               padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
               child: new Text(
-                "get coaster info",
+                "get tag info",
                 style: TextStyle(
                   fontFamily: FONZFONTTWO,
                   fontSize: HEADINGFIVE,

@@ -51,7 +51,7 @@ class _CoasterActionButtonsState extends State<CoasterActionButtons> {
                   await showDialog(
                       context: context,
                       builder: (popupContext) {
-                        return ChangeGroupField(coasterUid: widget.coasterInfo["body"].coaster.coasterId, popupContext: popupContext);
+                        return ChangeGroupField(coasterUid: widget.coasterInfo.body.coaster.coasterId, popupContext: popupContext);
                       }
                   );
                   // widget.notifyParent();
@@ -81,7 +81,7 @@ class _CoasterActionButtonsState extends State<CoasterActionButtons> {
                 ),
                 onPressed: () async {
                   // launch change group name
-                  await writeFonzUrlToCoaster(widget.coasterInfo["body"].coaster.coasterId);
+                  await writeFonzUrlToCoaster(widget.coasterInfo.body.coaster.coasterId);
                   // widget.notifyParent();
                 },
               ),
@@ -89,7 +89,7 @@ class _CoasterActionButtonsState extends State<CoasterActionButtons> {
             ],
           ),
           Container(height: 15,),
-          DetermineIfReleaseCoasterShows(widget.coasterInfo["body"].hostName, widget.coasterInfo["body"].coaster.coasterId),
+          DetermineIfReleaseCoasterShows(widget.coasterInfo.body.user.displayName, widget.coasterInfo.body.coaster.coasterId),
 
         ],
       ),
