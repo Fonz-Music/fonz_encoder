@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:fonz_encoder/GlobalComponents/FrontEnd/FrontEndConstants.dart';
 import 'package:fonz_encoder/CoasterInfoPage/InfoPageComponents/CoasterAttributes.dart';
 import 'package:fonz_encoder/CoasterInfoPage/InfoPageComponents/ActionButtons.dart';
+import 'package:fonz_encoder/HomePage/HomeEncodePage.dart';
 
 class CoasterInfoPage extends StatefulWidget {
 
-  CoasterInfoPage({Key key, this.coasterInfo, this.notifyParent}) : super(key: key);
+  CoasterInfoPage({Key key, this.notifyParent}) : super(key: key);
 
-  final coasterInfo;
+  // final coasterInfo;
   final Function() notifyParent;
 
   @override
@@ -17,6 +18,12 @@ class CoasterInfoPage extends StatefulWidget {
 }
 
 class _CoasterInfoPageState extends State<CoasterInfoPage> {
+
+  refresh() async {
+    // await userAttributes.setAttributes();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery
@@ -57,8 +64,8 @@ class _CoasterInfoPageState extends State<CoasterInfoPage> {
                 padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
                 child: ListView(
                   children: [
-                    CoasterActionButtons(coasterInfo: widget.coasterInfo),
-                    CoasterAttributesComp(coasterInfo: widget.coasterInfo,),
+                    CoasterActionButtons(notifyParent: refresh,),
+                    CoasterAttributesComp(),
                     // Spacer()
                   ],
                 ),

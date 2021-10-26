@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:fonz_encoder/GlobalComponents/FrontEnd/FrontEndConstants.dart';
 import 'package:flutter/services.dart';
+import 'package:fonz_encoder/HomePage/HomeEncodePage.dart';
 
 class CoasterAttributesComp extends StatefulWidget {
 
-  CoasterAttributesComp({Key key, this.coasterInfo}) : super(key: key);
-
-  final coasterInfo;
+  // CoasterAttributesComp({Key key, this.coasterInfo}) : super(key: key);
+  //
+  // final coasterInfo;
 
   @override
   _CoasterAttributesCompState createState() => _CoasterAttributesCompState();
@@ -29,14 +30,14 @@ class _CoasterAttributesCompState extends State<CoasterAttributesComp> {
           children: [
 
 
-            TagInfoContent("tagUID", widget.coasterInfo.body.coaster.coasterId  ?? ""),
-            TagInfoContent("encoded", widget.coasterInfo.body.coaster.encoded.toString()  ?? ""),
-            TagInfoContent("group", widget.coasterInfo.body.coaster.group  ?? ""),
-            TagInfoContent("userId", widget.coasterInfo.body.coaster.userId  ?? ""),
-            TagInfoContent("coasterName", widget.coasterInfo.body.coaster.name  ?? ""),
-            TagInfoContent("hostName", widget.coasterInfo.body.user.displayName  ?? ""),
-            TagInfoContent("sessionId", widget.coasterInfo.body.session.sessionId  ?? ""),
-            TagInfoContent("provider", widget.coasterInfo.body.session.provider  ?? ""),
+            TagInfoContent("tagUID", tagInfo.coaster.coasterId  ?? ""),
+            TagInfoContent("encoded", tagInfo.coaster.encoded.toString()  ?? ""),
+            TagInfoContent("group", tagInfo.coaster.group  ?? ""),
+            TagInfoContent("userId", tagInfo.coaster.userId  ?? ""),
+            TagInfoContent("coasterName", tagInfo.coaster.name  ?? ""),
+            TagInfoContent("hostName", tagInfo.user.displayName  ?? ""),
+            TagInfoContent("sessionId", tagInfo.session.sessionId  ?? ""),
+            TagInfoContent("provider", tagInfo.session.provider  ?? ""),
             Spacer()
           ],
         )

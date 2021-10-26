@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:fonz_encoder/ApiFunctions/AdminWebApi.dart';
 import 'package:fonz_encoder/GlobalComponents/FrontEnd/FrontEndConstants.dart';
 import 'package:fonz_encoder/ApiFunctions/HostApi/CoasterManagementApi.dart';
+import 'package:fonz_encoder/HomePage/HomeEncodePage.dart';
 
 
 class ChangeGroupField extends StatefulWidget {
-  ChangeGroupField({Key key, this.coasterUid, this.popupContext}) : super(key: key);
+  ChangeGroupField({Key key, this.coasterUid, this.popupContext, this.notifyParent}) : super(key: key);
   final popupContext;
   final coasterUid;
+  final notifyParent;
 
 
   @override
@@ -143,10 +146,13 @@ class _ChangeGroupFieldState extends State<ChangeGroupField> {
                             if (_newGroupNameKey.currentState.validate()) {
                               _newGroupNameKey.currentState.save();
                               // change group
-                              await CoasterManagementApi.updateCoasterGroup(widget.coasterUid, name);
+                               await CoasterManagementApi.updateCoasterGroup(widget.coasterUid, name);
+
                             }
                             // updatePageCoasterDashboard = true;
-
+                            var updatedCoaster = await AdminWebApi.getAdminCoasterDetails(widget.coasterUid);
+                            tagInfo = updatedCoaster.body;
+                            widget.notifyParent();
                             Navigator.pop(widget.popupContext);
                           },
                           child: Icon(

@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:fonz_encoder/ApiFunctions/AdminWebApi.dart';
 import 'package:fonz_encoder/GlobalComponents/FrontEnd/FrontEndConstants.dart';
 import 'package:fonz_encoder/CoasterInfoPage/InfoPageComponents/ButtonFields/ChangeGroupField.dart';
+import 'package:fonz_encoder/HomePage/HomeEncodePage.dart';
 import 'package:fonz_encoder/HomePage/HomePageWidgets/scanForCoasterDetails.dart';
 
 class CoasterActionButtons extends StatefulWidget {
-  CoasterActionButtons({Key key, this.coasterInfo}) : super(key: key);
-
-  final coasterInfo;
+  CoasterActionButtons({Key key, this.notifyParent}) : super(key: key);
+  //
+  final Function() notifyParent;
+  // final coasterInfo;
 
   @override
   _CoasterActionButtonsState createState() => _CoasterActionButtonsState();
@@ -51,7 +53,7 @@ class _CoasterActionButtonsState extends State<CoasterActionButtons> {
                   await showDialog(
                       context: context,
                       builder: (popupContext) {
-                        return ChangeGroupField(coasterUid: widget.coasterInfo.body.coaster.coasterId, popupContext: popupContext);
+                        return ChangeGroupField(coasterUid: tagInfo.coaster.coasterId, popupContext: popupContext, notifyParent: widget.notifyParent,);
                       }
                   );
                   // widget.notifyParent();
@@ -81,7 +83,7 @@ class _CoasterActionButtonsState extends State<CoasterActionButtons> {
                 ),
                 onPressed: () async {
                   // launch change group name
-                  await writeFonzUrlToCoaster(widget.coasterInfo.body.coaster.coasterId);
+                  await writeFonzUrlToCoaster(tagInfo.coaster.coasterId);
                   // widget.notifyParent();
                 },
               ),
@@ -89,7 +91,7 @@ class _CoasterActionButtonsState extends State<CoasterActionButtons> {
             ],
           ),
           Container(height: 15,),
-          DetermineIfReleaseCoasterShows(widget.coasterInfo.body.user.displayName, widget.coasterInfo.body.coaster.coasterId),
+          DetermineIfReleaseCoasterShows(tagInfo.user.displayName, tagInfo.coaster.coasterId),
 
         ],
       ),

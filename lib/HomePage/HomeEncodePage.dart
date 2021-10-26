@@ -29,6 +29,9 @@ String encodeTagResponse = "HOME";
 String tagUid = "";
 bool launchedNfcToJoinParty = false;
 
+// global var for coaster
+var tagInfo = GetAdminCoasterDecoder();
+
 String groupCoasterBelongs = "";
 String venueTagBelongs = "";
 String commandToLaunch = "";
@@ -170,6 +173,7 @@ class _HomeEncodePageState extends State<HomeEncodePage> {
         else if (commandToLaunch == "GET_COASTER_INFO") {
           // var coasterInfo = await GuestGetCoasterApi.getCoasterDetails(tagUid);
           var coasterInfo = await AdminWebApi.getAdminCoasterDetails(tagUid);
+          tagInfo = coasterInfo.body;
           // var coasterInfo = await CoasterManagementApi.getSingleOwnedCoaster(tagUid);
           log("coaster info is " + coasterInfo.body.toString());
           showModalBottomSheet<dynamic>(context: context,
@@ -185,7 +189,7 @@ class _HomeEncodePageState extends State<HomeEncodePage> {
                               borderRadius: new BorderRadius.only(
                                   topLeft: const Radius.circular(25.0),
                                   topRight: const Radius.circular(25.0))),
-                          child: CoasterInfoPage(coasterInfo: coasterInfo, notifyParent: widget.notifyParent,),
+                          child: CoasterInfoPage(notifyParent: widget.notifyParent,),
                         ),
                       )
                     ]
