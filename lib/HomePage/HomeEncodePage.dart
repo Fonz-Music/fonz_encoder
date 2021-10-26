@@ -35,7 +35,7 @@ var tagInfo = GetAdminCoasterDecoder();
 String groupCoasterBelongs = "";
 String venueTagBelongs = "";
 String commandToLaunch = "";
-List<String> _potentialVenues = ['party', 'pub', 'rest', 'fonzhq'];
+List<String> potentialVenues = ['party', 'pub', 'rest', 'fonzhq'];
 
 class HomeEncodePage extends StatefulWidget {
   HomeEncodePage({Key key, this.notifyParent}) : super(key: key);
@@ -372,7 +372,7 @@ class _HomeEncodePageState extends State<HomeEncodePage> {
                 venueTagBelongs = value;
               });
             },
-            items: _potentialVenues.map((String value) {
+            items: potentialVenues.map((String value) {
               return new DropdownMenuItem<String>(
                 value: value,
                 child: Text(value),

@@ -7,6 +7,8 @@ import 'package:fonz_encoder/CoasterInfoPage/InfoPageComponents/ButtonFields/Cha
 import 'package:fonz_encoder/HomePage/HomeEncodePage.dart';
 import 'package:fonz_encoder/HomePage/HomePageWidgets/scanForCoasterDetails.dart';
 
+import 'ButtonFields/EncodeTagField.dart';
+
 class CoasterActionButtons extends StatefulWidget {
   CoasterActionButtons({Key key, this.notifyParent}) : super(key: key);
   //
@@ -82,8 +84,18 @@ class _CoasterActionButtonsState extends State<CoasterActionButtons> {
                   ),
                 ),
                 onPressed: () async {
-                  // launch change group name
-                  await writeFonzUrlToCoaster(tagInfo.coaster.coasterId);
+                  // // launch change group name
+                  // await writeFonzUrlToCoaster(tagInfo.coaster.coasterId);
+                  // var updatedCoaster = await AdminWebApi.getAdminCoasterDetails(tagInfo.coaster.coasterUid);
+                  // tagInfo = updatedCoaster.body;
+                  // widget.notifyParent();
+                  // launch encode tag field
+                  await showDialog(
+                      context: context,
+                      builder: (popupContext) {
+                        return EncodeTagField(coasterUid: tagInfo.coaster.coasterId, popupContext: popupContext, notifyParent: widget.notifyParent,);
+                      }
+                  );
                   // widget.notifyParent();
                 },
               ),
@@ -91,7 +103,7 @@ class _CoasterActionButtonsState extends State<CoasterActionButtons> {
             ],
           ),
           Container(height: 15,),
-          DetermineIfReleaseCoasterShows(tagInfo.user.displayName, tagInfo.coaster.coasterId),
+          DetermineIfReleaseCoasterShows(tagInfo.user.displayName, tagInfo.coaster.coasterId, widget.notifyParent),
 
         ],
       ),
@@ -99,7 +111,7 @@ class _CoasterActionButtonsState extends State<CoasterActionButtons> {
   }
 }
 
-Widget DetermineIfReleaseCoasterShows(String hostName, String tagUid) {
+Widget DetermineIfReleaseCoasterShows(String hostName, String tagUid, var refresh) {
   // if has host
   log("hostname is " + hostName);
   if (hostName != null && hostName != "") {
@@ -128,6 +140,9 @@ Widget DetermineIfReleaseCoasterShows(String hostName, String tagUid) {
       onPressed: () async {
         // launch change group name
         var coasterInfo = await AdminWebApi.releaseTagFromHost(tagUid);
+        var updatedCoaster = await AdminWebApi.getAdminCoasterDetails(tagUid);
+        tagInfo = updatedCoaster.body;
+        refresh();
         // widget.notifyParent();
       },
     );
