@@ -1,16 +1,8 @@
 # fonz_music_flutter
 
-A new Flutter project for to encode all Fonz Music NFC tags.
+This flutter app is an admin app for the Fonz Music team. 
 
-## Getting Started
+The primary function of this app was to read & write NFC coasters, check ownership & attributes of existing coasters, & remove owners of coasters. 
 
-This project is a starting point for a Flutter application.
+This app compiles for both iOS & Android. The NFC functions for iOS are written natively in Swift & use NFC_in_Flutter for Android apps. 
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
